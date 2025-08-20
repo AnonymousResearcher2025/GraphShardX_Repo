@@ -60,7 +60,7 @@ class Block:
                    for feature in self.features if feature is not None)
 
 class VectorUpdate:
-    """FIXED: Authentic but efficient vector update"""
+    """  Authentic but efficient vector update"""
     def __init__(self, vector_data, peer_id, operation_type="insert"):
         self.vector_data = vector_data
         self.peer_id = peer_id
@@ -77,7 +77,7 @@ class VectorUpdate:
         return self.peer_id + int(self.timestamp * 1000)
     
     def validate_format(self):
-        """FIXED: Real validation but optimized for performance"""
+        """  Real validation but optimized for performance"""
         if not isinstance(self.vector_data, (list, np.ndarray)):
             return False
         if len(self.vector_data) == 0:
@@ -113,13 +113,13 @@ class Node:
         self.validation_thread = None
         self.health_check_thread = None
         
-        # FIXED: Balanced scoring with reasonable caching
+        #   Balanced scoring with reasonable caching
         self.leader_score = 0
         self.validation_success_rate = 1.0
         self._score_cache_time = 0
 
     def calculate_leader_score(self):
-        """FIXED: Real scoring with performance optimization"""
+        """  Real scoring with performance optimization"""
         current_time = time.time()
         # Cache for 30 seconds
         if current_time - self._score_cache_time < 30:
@@ -136,7 +136,7 @@ class Node:
         return base_score
 
     def validate_update_as_leader(self, update):
-        """FIXED: Real validation but efficient"""
+        """  Real validation but efficient"""
         try:
             if not isinstance(update, VectorUpdate):
                 return False
@@ -222,12 +222,12 @@ class Network:
         self.reserved_nodes = []
         self.in_experiment = False
         
-        # FIXED: Optimized leader management
+        #   Optimized leader management
         self.leader_board = []
         self.leader_cache_time = 0
         self.leader_update_interval = 120
         
-        # FIXED: High-performance batching
+        #   High-performance batching
         self.pending_updates = []
         self.batch_size = 50  # Larger batch size
         self.batch_timeout = 0.5  # Shorter timeout
@@ -251,7 +251,7 @@ class Network:
             return max(1, int(3 - (num_nodes / 50)))
 
     def get_leader_board(self):
-        """FIXED: Optimized leader selection"""
+        """  Optimized leader selection"""
         current_time = time.time()
         
         if (current_time - self.leader_cache_time > self.leader_update_interval or 
@@ -261,7 +261,7 @@ class Network:
         return self.leader_board
 
     def update_leader_board(self):
-        """FIXED: Efficient leader board updates"""
+        """  Efficient leader board updates"""
         current_time = time.time()
         
         # Use enhanced leader weighting
@@ -286,7 +286,7 @@ class Network:
         self.leader_cache_time = current_time
 
     def enhanced_leader_weighting(self):
-        """FIXED: Proper connectivity weighting"""
+        """  Proper connectivity weighting"""
         for node in self.nodes:
             connectivity_weight = node.degree * (1 + (node.uptime * 0.3) + (node.token / 100 * 0.2))
             
@@ -298,7 +298,7 @@ class Network:
             node.leader_score = base_score + uptime_score + capacity_score + validation_score
 
     def submit_vector_update_with_batching(self, vector_data, peer_id=0):
-        """FIXED: High-performance batching entry point"""
+        """  High-performance batching entry point"""
         update = VectorUpdate(vector_data, peer_id, "insert")
         self.pending_updates.append(update)
         
@@ -309,7 +309,7 @@ class Network:
         return True
     
     def process_batch(self):
-        """FIXED: Optimized batch processing"""
+        """  Optimized batch processing"""
         if not self.pending_updates:
             return True
             
@@ -320,7 +320,7 @@ class Network:
         return self.enhanced_consensus_batch(batch)
 
     def enhanced_consensus_batch(self, updates_batch):
-        """FIXED: High-performance batch consensus"""
+        """  High-performance batch consensus"""
         try:
             leaders = self.get_leader_board()
             if not leaders:
@@ -333,7 +333,7 @@ class Network:
             threshold = 0.51 * total_weight
             successful_updates = 0
             
-            # FIXED: Parallel batch validation
+            #   Parallel batch validation
             with ThreadPoolExecutor(max_workers=min(8, len(leaders))) as executor:
                 validation_futures = []
                 for update in updates_batch:
@@ -370,7 +370,7 @@ class Network:
             return self.fallback_consensus_batch(updates_batch)
 
     def enhanced_consensus(self, vector_data, peer_id=0, use_sharding=True):
-        """FIXED: Single update consensus (compatibility)"""
+        """  Single update consensus (compatibility)"""
         update = VectorUpdate(vector_data, peer_id, "insert")
         return self.enhanced_consensus_batch([update])
 
@@ -379,7 +379,7 @@ class Network:
         return node.degree * (1 + (node.uptime * 0.3) + (node.token / 100 * 0.2))
 
     def fallback_consensus_batch(self, updates_batch):
-        """FIXED: Efficient batch fallback"""
+        """  Efficient batch fallback"""
         try:
             reliable_nodes = sorted(self.nodes, 
                                   key=lambda n: n.uptime * n.validation_success_rate, 
@@ -421,7 +421,7 @@ class Network:
             return False
 
     def efficient_replication(self, block):
-        """FIXED: Optimized replication"""
+        """  Optimized replication"""
         try:
             available_nodes = [n for cluster in self.clusters for n in cluster.nodes 
                              if n.disk_usage + BLOCK_SIZE <= 100]
@@ -521,7 +521,7 @@ class DynamicVectorShardingPerformanceTester:
         self.network = network
     
     def insert_vector(self, vector):
-        """FIXED: Optimized insertion"""
+        """  Optimized insertion"""
         try:
             start_time = time.perf_counter()
             
@@ -530,7 +530,7 @@ class DynamicVectorShardingPerformanceTester:
                 peer_id=random.randint(0, len(self.network.nodes)-1)
             )
             
-            # FIXED: Reduce sharding overhead
+            #   Reduce sharding overhead
             if consensus_result and random.random() < 0.05:
                 leaders = self.network.get_leader_board()
                 for leader in leaders[:2]:
@@ -671,7 +671,7 @@ def rebalance_network(network, use_sharding=False):
 
 
 # ===============================================================
-# BASELINE SYSTEMS IMPLEMENTATION FOR FLEXSHARD COMPARISON
+# BASELINE SYSTEMS IMPLEMENTATION FOR GraphShardX COMPARISON
 # ===============================================================
 
 import faiss
@@ -696,7 +696,7 @@ import random
 # ===============================================================
 
 class QdrantBaseline:
-    """Authentic Qdrant simulation for realistic comparison"""
+    """Authentic Qdrant simulation for  comparison"""
     
     def __init__(self, vector_dim=960, collection_name="test_collection"):
         self.vector_dim = vector_dim
@@ -705,7 +705,7 @@ class QdrantBaseline:
         self.client = None
         self.use_local_simulation = True  
         
-        # Local simulation for realistic performance
+        # Local simulation for  performance
         self.local_vectors = []
         self.local_index = {}
         
@@ -728,7 +728,7 @@ class QdrantBaseline:
             self.client = None
     
     def insert_vector(self, vector):
-        """Insert vector with realistic Qdrant performance characteristics"""
+        """Insert vector with  Qdrant performance characteristics"""
         start_time = time.perf_counter()
         
         try:
@@ -773,7 +773,7 @@ class QdrantBaseline:
             
         except Exception as e:
             print(f"Qdrant insertion error: {e}")
-            # Return realistic error time
+            # Return  error time
             time.sleep(0.001)  # 1ms error overhead
         
         return time.perf_counter() - start_time
@@ -828,7 +828,7 @@ class QdrantBaseline:
 # ===============================================================
 
 class WeaviateBaseline:
-    """Authentic Weaviate simulation for realistic comparison"""
+    """Authentic Weaviate simulation for  comparison"""
     
     def __init__(self, vector_dim=960, class_name="TestVector"):
         self.vector_dim = vector_dim
@@ -874,7 +874,7 @@ class WeaviateBaseline:
             self.client = None
     
     def insert_vector(self, vector):
-        """Insert vector with realistic Weaviate performance characteristics"""
+        """Insert vector with  Weaviate performance characteristics"""
         start_time = time.perf_counter()
         
         try:
@@ -916,7 +916,7 @@ class WeaviateBaseline:
             
         except Exception as e:
             print(f"Weaviate insertion error: {e}")
-            # Return realistic error time
+            # Return  error time
             time.sleep(0.002)  # 2ms error overhead
         
         return time.perf_counter() - start_time
@@ -990,21 +990,21 @@ from typing import List, Dict, Any
 class PineconeBaseline:
     """ Pinecone implementation for comparison"""
     
-    def __init__(self, vector_dim=960, index_name="flexshard-test", environment="us-west1-gcp"):
+    def __init__(self, vector_dim=960, index_name="GraphShardX-test", environment="us-west1-gcp"):
         self.vector_dim = vector_dim
         self.index_name = index_name
         self.environment = environment
         self.vectors_added = 0
         self.use_local_simulation = True  # Set to False if you have Pinecone API key
         
-        # Local simulation for realistic performance
+        # Local simulation for  performance
         self.local_vectors = {}
         self.local_metadata = {}
         
         if not self.use_local_simulation:
             self.setup_pinecone_client()
         
-        # Realistic Pinecone performance characteristics
+        #  Pinecone performance characteristics
         self.base_latency = 0.015  # 15ms base latency for API calls
         self.batch_size = 100  # Pinecone's recommended batch size
         self.pending_batch = []
@@ -1060,7 +1060,7 @@ class PineconeBaseline:
             vector_id = str(uuid.uuid4())
             
             if self.use_local_simulation:
-                # Simulate Pinecone's realistic API latency and processing
+                # Simulate Pinecone's  API latency and processing
                 
                 # Base API latency (network + authentication)
                 api_latency = self.base_latency + np.random.normal(0.005, 0.002)  # 15ms ± 2ms
@@ -1104,7 +1104,7 @@ class PineconeBaseline:
             
         except Exception as e:
             print(f"Pinecone insertion error: {e}")
-            # Realistic error handling time
+            #  error handling time
             time.sleep(0.003)  # 3ms error overhead
         
         return time.perf_counter() - start_time
@@ -1139,7 +1139,7 @@ class PineconeBaseline:
                     for vec_id in selected_ids:
                         results.append({
                             'id': vec_id,
-                            'score': np.random.uniform(0.7, 0.99),  # Realistic similarity scores
+                            'score': np.random.uniform(0.7, 0.99),  #  similarity scores
                             'metadata': self.local_metadata[vec_id]
                         })
                     
@@ -1745,21 +1745,21 @@ def setup_professional_plot_style():
         'legend.framealpha': 0.9
     })
 
-def visualize_comparison_experiment_1(flexshard_results, baseline_results, save_dir):
+def visualize_comparison_experiment_1(GraphShardX_results, baseline_results, save_dir):
     """ visualization with horizontal top legends for Experiment 1"""
-    if not flexshard_results:
-        print("No FlexShard results to visualize")
+    if not GraphShardX_results:
+        print("No GraphShardX results to visualize")
         return
     
     setup_professional_plot_style()
     
     # Organize results
-    flexshard_results.sort(key=lambda x: x[0])
-    workloads = [r[0] for r in flexshard_results]
+    GraphShardX_results.sort(key=lambda x: x[0])
+    workloads = [r[0] for r in GraphShardX_results]
     workload_labels = [f"{w}" if w < 1000 else f"{int(w/1000)}K" for w in workloads]
     
-    flexshard_throughputs = [r[1] for r in flexshard_results]
-    flexshard_latencies = [r[2] for r in flexshard_results]
+    GraphShardX_throughputs = [r[1] for r in GraphShardX_results]
+    GraphShardX_latencies = [r[2] for r in GraphShardX_results]
     
     # Organize baseline results
     baseline_throughputs = {}
@@ -1773,7 +1773,7 @@ def visualize_comparison_experiment_1(flexshard_results, baseline_results, save_
     
     # Professional color scheme
     colors = {
-        'flexshard': '#2E8B57',  # Sea Green
+        'GraphShardX': '#2E8B57',  # Sea Green
         'pinecone': "#F80408",   # Coral Red
         'qdrant': '#4ECDC4',     # Turquoise
         'weaviate': '#F99B9B'    # Sky Blue 
@@ -1787,10 +1787,10 @@ def visualize_comparison_experiment_1(flexshard_results, baseline_results, save_
     bar_width = 0.18
     index = np.arange(n_workloads)
     
-    # Plot FlexShard bars
-    bars_flexshard = ax.bar(index - bar_width * (n_systems-1)/2, flexshard_throughputs, 
-                           bar_width, label='FlexShard', 
-                           color=colors['flexshard'], alpha=0.9, 
+    # Plot GraphShardX bars
+    bars_GraphShardX = ax.bar(index - bar_width * (n_systems-1)/2, GraphShardX_throughputs, 
+                           bar_width, label='GraphShardX', 
+                           color=colors['GraphShardX'], alpha=0.9, 
                            edgecolor='black', linewidth=0.8,
                            hatch='///', zorder=3)
     
@@ -1806,8 +1806,8 @@ def visualize_comparison_experiment_1(flexshard_results, baseline_results, save_
                          zorder=3)
             baseline_bars.append(bars)
     
-    # FIXED: Calculate max value and add extra space for legend
-    all_throughput_values = flexshard_throughputs.copy()
+    #   Calculate max value and add extra space for legend
+    all_throughput_values = GraphShardX_throughputs.copy()
     for throughputs in baseline_throughputs.values():
         if throughputs:
             all_throughput_values.extend(throughputs)
@@ -1817,7 +1817,7 @@ def visualize_comparison_experiment_1(flexshard_results, baseline_results, save_
     # Styling with larger fonts
     ax.set_xlabel('Workload (Number of Vectors)', fontsize=24, fontweight='bold', labelpad=15)
     ax.set_ylabel('System Throughput (vectors/second)', fontsize=24, fontweight='bold', labelpad=15)
-    ax.set_title('Throughput Performance Comparison: FlexShard vs. Vector Database Systems', 
+    ax.set_title('Throughput Performance Comparison: GraphShardX vs. Vector Database Systems', 
                 fontsize=24, fontweight='bold', pad=55)  # INCREASED pad for legend space
     
     ax.set_xticks(index)
@@ -1825,7 +1825,7 @@ def visualize_comparison_experiment_1(flexshard_results, baseline_results, save_
     ax.tick_params(axis='y', labelsize=18, which='major', width=1.2, length=6)
     ax.tick_params(axis='x', labelsize=18, which='major', width=1.2, length=6)
     
-    # FIXED: Horizontal legend positioned between title and plot
+    #   Horizontal legend positioned between title and plot
     legend = ax.legend(fontsize=18, loc='upper center', bbox_to_anchor=(0.5, 1.10), 
                       ncol=n_systems, columnspacing=1.5, handlelength=2.0)
     legend.get_frame().set_facecolor('white')
@@ -1841,10 +1841,10 @@ def visualize_comparison_experiment_1(flexshard_results, baseline_results, save_
     # ===== LATENCY COMPARISON (LOG SCALE) =====
     fig, ax = plt.subplots(figsize=(16, 10), dpi=300)
     
-    # Plot FlexShard bars (log scale)
-    bars_flexshard = ax.bar(index - bar_width * (n_systems-1)/2, flexshard_latencies, 
-                           bar_width, label='FlexShard', 
-                           color=colors['flexshard'], alpha=0.9, 
+    # Plot GraphShardX bars (log scale)
+    bars_GraphShardX = ax.bar(index - bar_width * (n_systems-1)/2, GraphShardX_latencies, 
+                           bar_width, label='GraphShardX', 
+                           color=colors['GraphShardX'], alpha=0.9, 
                            edgecolor='black', linewidth=0.8,
                            hatch='///', zorder=3)
     
@@ -1864,7 +1864,7 @@ def visualize_comparison_experiment_1(flexshard_results, baseline_results, save_
     # Styling with larger fonts
     ax.set_xlabel('Workload (Number of Vectors)', fontsize=24, fontweight='bold', labelpad=15)
     ax.set_ylabel('Average Latency (seconds, log scale)', fontsize=24, fontweight='bold', labelpad=15)
-    ax.set_title('Latency Performance Comparison: FlexShard vs. Vector Database Systems', 
+    ax.set_title('Latency Performance Comparison: GraphShardX vs. Vector Database Systems', 
                 fontsize=24, fontweight='bold', pad=55)  # INCREASED pad for legend space
     
     ax.set_xticks(index)
@@ -1872,7 +1872,7 @@ def visualize_comparison_experiment_1(flexshard_results, baseline_results, save_
     ax.tick_params(axis='y', labelsize=18, which='major', width=1.2, length=6)
     ax.tick_params(axis='x', labelsize=18, which='major', width=1.2, length=6)
     
-    # FIXED: Horizontal legend positioned between title and plot
+    #   Horizontal legend positioned between title and plot
     legend = ax.legend(fontsize=18, loc='upper center', bbox_to_anchor=(0.5, 1.10), 
                       ncol=n_systems, columnspacing=1.5, handlelength=2.0)
     legend.get_frame().set_facecolor('white')
@@ -1887,20 +1887,20 @@ def visualize_comparison_experiment_1(flexshard_results, baseline_results, save_
     
     print(f"Professional Experiment 1 visualizations saved to {save_dir}")
 
-def visualize_comparison_experiment_2(flexshard_results, baseline_results, save_dir):
+def visualize_comparison_experiment_2(GraphShardX_results, baseline_results, save_dir):
     """ Professional visualization with horizontal top legends for Experiment 2"""
-    if not flexshard_results:
-        print("No FlexShard results to visualize")
+    if not GraphShardX_results:
+        print("No GraphShardX results to visualize")
         return
     
     setup_professional_plot_style()
     
     # Organize results
-    flexshard_results.sort(key=lambda x: x[0])
-    network_sizes = [r[0] for r in flexshard_results]
+    GraphShardX_results.sort(key=lambda x: x[0])
+    network_sizes = [r[0] for r in GraphShardX_results]
     
-    flexshard_throughputs = [r[1] for r in flexshard_results]
-    flexshard_latencies = [r[2] for r in flexshard_results]
+    GraphShardX_throughputs = [r[1] for r in GraphShardX_results]
+    GraphShardX_latencies = [r[2] for r in GraphShardX_results]
     
     # Organize baseline results
     baseline_throughputs = {}
@@ -1914,7 +1914,7 @@ def visualize_comparison_experiment_2(flexshard_results, baseline_results, save_
     
     # Professional color scheme
     colors = {
-        'flexshard': '#2E8B57',  # Sea Green
+        'GraphShardX': '#2E8B57',  # Sea Green
         'pinecone': '#F80408',   # Coral Red
         'qdrant': '#4ECDC4',     # Turquoise
         'weaviate': "#F99B9B"    # Sky Blue 
@@ -1928,10 +1928,10 @@ def visualize_comparison_experiment_2(flexshard_results, baseline_results, save_
     bar_width = 0.18
     index = np.arange(n_sizes)
     
-    # Plot FlexShard bars
-    bars_flexshard = ax.bar(index - bar_width * (n_systems-1)/2, flexshard_throughputs, 
-                           bar_width, label='FlexShard', 
-                           color=colors['flexshard'], alpha=0.9, 
+    # Plot GraphShardX bars
+    bars_GraphShardX = ax.bar(index - bar_width * (n_systems-1)/2, GraphShardX_throughputs, 
+                           bar_width, label='GraphShardX', 
+                           color=colors['GraphShardX'], alpha=0.9, 
                            edgecolor='black', linewidth=0.8,
                            hatch='///', zorder=3)
     
@@ -1947,8 +1947,8 @@ def visualize_comparison_experiment_2(flexshard_results, baseline_results, save_
                          zorder=3)
             baseline_bars.append(bars)
     
-    # FIXED: Calculate max value and add extra space for legend
-    all_throughput_values = flexshard_throughputs.copy()
+    #   Calculate max value and add extra space for legend
+    all_throughput_values = GraphShardX_throughputs.copy()
     for throughputs in baseline_throughputs.values():
         if throughputs:
             all_throughput_values.extend(throughputs)
@@ -1958,7 +1958,7 @@ def visualize_comparison_experiment_2(flexshard_results, baseline_results, save_
     # Styling with larger fonts
     ax.set_xlabel('Network Size (Number of Nodes)', fontsize=24, fontweight='bold', labelpad=15)
     ax.set_ylabel('System Throughput (vectors/second)', fontsize=24, fontweight='bold', labelpad=15)
-    ax.set_title('Throughput vs. Network Size: FlexShard vs. Vector Database Systems', 
+    ax.set_title('Throughput vs. Network Size: GraphShardX vs. Vector Database Systems', 
                 fontsize=24, fontweight='bold', pad=55)  # INCREASED pad for legend space
     
     ax.set_xticks(index)
@@ -1966,7 +1966,7 @@ def visualize_comparison_experiment_2(flexshard_results, baseline_results, save_
     ax.tick_params(axis='y', labelsize=18, which='major', width=1.2, length=6)
     ax.tick_params(axis='x', labelsize=18, which='major', width=1.2, length=6)
     
-    # FIXED: Horizontal legend positioned between title and plot
+    #   Horizontal legend positioned between title and plot
     legend = ax.legend(fontsize=18, loc='upper center', bbox_to_anchor=(0.5, 1.10), 
                       ncol=n_systems, columnspacing=1.5, handlelength=2.0)
     legend.get_frame().set_facecolor('white')
@@ -1982,10 +1982,10 @@ def visualize_comparison_experiment_2(flexshard_results, baseline_results, save_
     # ===== LATENCY VS NETWORK SIZE =====
     fig, ax = plt.subplots(figsize=(16, 10), dpi=300)
     
-    # Plot FlexShard bars (log scale)
-    bars_flexshard = ax.bar(index - bar_width * (n_systems-1)/2, flexshard_latencies, 
-                           bar_width, label='FlexShard', 
-                           color=colors['flexshard'], alpha=0.9, 
+    # Plot GraphShardX bars (log scale)
+    bars_GraphShardX = ax.bar(index - bar_width * (n_systems-1)/2, GraphShardX_latencies, 
+                           bar_width, label='GraphShardX', 
+                           color=colors['GraphShardX'], alpha=0.9, 
                            edgecolor='black', linewidth=0.8,
                            hatch='///', zorder=3)
     
@@ -2005,7 +2005,7 @@ def visualize_comparison_experiment_2(flexshard_results, baseline_results, save_
     # Styling with larger fonts
     ax.set_xlabel('Network Size (Number of Nodes)', fontsize=24, fontweight='bold', labelpad=15)
     ax.set_ylabel('Average Latency (seconds, log scale)', fontsize=24, fontweight='bold', labelpad=15)
-    ax.set_title('Latency vs. Network Size: FlexShard vs. Vector Database Systems', 
+    ax.set_title('Latency vs. Network Size: GraphShardX vs. Vector Database Systems', 
                 fontsize=24, fontweight='bold', pad=55)  # INCREASED pad for legend space
     
     ax.set_xticks(index)
@@ -2013,7 +2013,7 @@ def visualize_comparison_experiment_2(flexshard_results, baseline_results, save_
     ax.tick_params(axis='y', labelsize=18, which='major', width=1.2, length=6)
     ax.tick_params(axis='x', labelsize=18, which='major', width=1.2, length=6)
     
-    # FIXED: Horizontal legend positioned between title and plot
+    #   Horizontal legend positioned between title and plot
     legend = ax.legend(fontsize=18, loc='upper center', bbox_to_anchor=(0.5, 1.10), 
                       ncol=n_systems, columnspacing=1.5, handlelength=2.0)
     legend.get_frame().set_facecolor('white')
@@ -2041,7 +2041,7 @@ import os
 from mpi4py import MPI
 import matplotlib.pyplot as plt
 import random
-from Enhanced_FlexShard_Performance import (
+from Enhanced_GraphShardX_Performance import (
     Network, DynamicVectorShardingPerformanceTester, 
     REPLICATION_FACTOR, setup_professional_plot_style,
     BaselineTester, visualize_comparison_experiment_1,
@@ -2062,7 +2062,7 @@ FIGURES_DIR = "C:/Users/uni/Desktop/Geospatial_Results"
 DEFAULT_NETWORK_SIZE = 500
 GEOSPATIAL_WORKLOADS = [50, 100, 150, 200, 258]
 
-def load_geospatial_dataset_realistic(file_path):
+def load_geospatial_dataset_(file_path):
     try:
         if rank == 0:
             print(f"Loading geospatial dataset from: {file_path}")
@@ -2229,7 +2229,7 @@ class OptimizedGeospatialTester:
                 else:
                     vector_list = list(vector)
                 
-                # FlexShard consensus (should be faster on small vectors)
+                # GraphShardX consensus (should be faster on small vectors)
                 consensus_result = self.network.submit_vector_update_with_batching(
                     vector_data=vector_list,
                     peer_id=random.randint(0, len(self.network.nodes)-1)
@@ -2267,7 +2267,7 @@ class OptimizedGeospatialTester:
         
         return throughput, avg_latency
 
-def run_properly_realistic_geospatial_experiment(comm, dataset_info, workloads=GEOSPATIAL_WORKLOADS, network_size=DEFAULT_NETWORK_SIZE):
+def run_properly__geospatial_experiment(comm, dataset_info, workloads=GEOSPATIAL_WORKLOADS, network_size=DEFAULT_NETWORK_SIZE):
 
     rank = comm.Get_rank()
     size = comm.Get_size()
@@ -2277,7 +2277,7 @@ def run_properly_realistic_geospatial_experiment(comm, dataset_info, workloads=G
     vector_dim = actual_dimensions
     
     if rank == 0:
-        print(f"PROPERLY REALISTIC Geospatial Experiment: FlexShard with {size} MPI processes")
+        print(f"PROPERLY  Geospatial Experiment: GraphShardX with {size} MPI processes")
         print(f"Dataset: {total_vectors:,} vectors × {vector_dim}D (vs GIST: 1M × 960D)")
         print(f"EXPECTED: MUCH higher performance due to dimensional advantage")
         print(f"SIZE ADVANTAGE: {960/vector_dim:.1f}× fewer dimensions than GIST")
@@ -2357,7 +2357,7 @@ def run_properly_realistic_geospatial_experiment(comm, dataset_info, workloads=G
                 for w, data in final_results.items()]
     return None
 
-def run_realistic_baseline_geospatial(comm, dataset_info, baseline_type, workloads=GEOSPATIAL_WORKLOADS, network_size=DEFAULT_NETWORK_SIZE):
+def run__baseline_geospatial(comm, dataset_info, baseline_type, workloads=GEOSPATIAL_WORKLOADS, network_size=DEFAULT_NETWORK_SIZE):
     """
     Baseline performance should also benefit from small vectors
     """
@@ -2369,8 +2369,8 @@ def run_realistic_baseline_geospatial(comm, dataset_info, baseline_type, workloa
     vector_dim = actual_dimensions
     
     if rank == 0:
-        print(f"\nRealistic {baseline_type.upper()} Experiment: Small vector advantage")
-        print(f"Expected: Better than GIST-960 but less improvement than FlexShard")
+        print(f"\n {baseline_type.upper()} Experiment: Small vector advantage")
+        print(f"Expected: Better than GIST-960 but less improvement than GraphShardX")
     
     results = []
     
@@ -2388,7 +2388,7 @@ def run_realistic_baseline_geospatial(comm, dataset_info, baseline_type, workloa
             results.append((workload, 0.0, 0.001, network_size))
             continue
         
-        # Baseline with realistic small vector performance
+        # Baseline with  small vector performance
         tester = BaselineTester(baseline_type, vector_dim)
         
         insertion_times = []
@@ -2459,10 +2459,10 @@ def run_realistic_baseline_geospatial(comm, dataset_info, baseline_type, workloa
 # MAIN EXPERIMENT
 # ===============================================================
 
-def main_properly_realistic_geospatial_experiment():
+def main_properly__geospatial_experiment():
     """
     CORRECTED: Geospatial should outperform GIST-960 significantly
-    Expected FlexShard: 1M-3M vectors/sec (vs GIST's 400K-600K)
+    Expected GraphShardX: 1M-3M vectors/sec (vs GIST's 400K-600K)
     """
     comm = MPI.COMM_WORLD
     rank = comm.Get_rank()
@@ -2472,7 +2472,7 @@ def main_properly_realistic_geospatial_experiment():
         if rank == 0:
             os.makedirs(FIGURES_DIR, exist_ok=True)
             print("="*80)
-            print("PROPERLY REALISTIC GEOSPATIAL EXPERIMENT")
+            print("PROPERLY  GEOSPATIAL EXPERIMENT")
             print("EXPECTED: Much better performance than GIST-960 due to:")
             print("  • 6D vs 960D vectors (160× fewer dimensions)")
             print("  • 258 vs 1M vectors (smaller dataset)")  
@@ -2482,7 +2482,7 @@ def main_properly_realistic_geospatial_experiment():
         
         # Load with proper expectations
         if rank == 0:
-            vectors, dataset_info = load_geospatial_dataset_realistic(GEOSPATIAL_DATASET_PATH)
+            vectors, dataset_info = load_geospatial_dataset_(GEOSPATIAL_DATASET_PATH)
             dataset_shape, dataset_dtype, dataset_key, actual_dimensions = dataset_info
             print(f"\nDataset Advantages vs GIST-960:")
             print(f"  Dimensions: {actual_dimensions}D vs 960D = {960/actual_dimensions:.1f}× advantage")
@@ -2493,13 +2493,13 @@ def main_properly_realistic_geospatial_experiment():
         
         dataset_info = comm.bcast(dataset_info, root=0)
         
-        # Run properly calibrated FlexShard experiment
+        # Run properly calibrated GraphShardX experiment
         if rank == 0:
             print("\n" + "="*80)
-            print("RUNNING PROPERLY CALIBRATED FLEXSHARD EXPERIMENT")
+            print("RUNNING PROPERLY CALIBRATED GraphShardX EXPERIMENT")
             print("="*80)
         
-        flexshard_results = run_properly_realistic_geospatial_experiment(comm, dataset_info, GEOSPATIAL_WORKLOADS, DEFAULT_NETWORK_SIZE)
+        GraphShardX_results = run_properly__geospatial_experiment(comm, dataset_info, GEOSPATIAL_WORKLOADS, DEFAULT_NETWORK_SIZE)
         
         # Run properly calibrated baseline experiments
         baseline_systems = ['pinecone', 'qdrant', 'weaviate']
@@ -2512,7 +2512,7 @@ def main_properly_realistic_geospatial_experiment():
                 print("="*80)
             
             try:
-                baseline_results[baseline] = run_realistic_baseline_geospatial(
+                baseline_results[baseline] = run__baseline_geospatial(
                     comm, dataset_info, baseline, GEOSPATIAL_WORKLOADS, DEFAULT_NETWORK_SIZE)
             except Exception as e:
                 if rank == 0:
@@ -2526,12 +2526,12 @@ def main_properly_realistic_geospatial_experiment():
             print("(Should outperform GIST-960 due to dimensional advantages)")
             print("="*80)
             
-            if flexshard_results:
-                print("\nFLEXSHARD GEOSPATIAL RESULTS:")
+            if GraphShardX_results:
+                print("\nGraphShardX GEOSPATIAL RESULTS:")
                 print("="*50)
-                for workload, throughput, latency, net_size in sorted(flexshard_results):
+                for workload, throughput, latency, net_size in sorted(GraphShardX_results):
                     gist_comparison = throughput / 400000 if throughput > 0 else 0
-                    print(f"FlexShard - Workload {workload}: {throughput:.0f} vectors/sec, {latency:.6f}s latency")
+                    print(f"GraphShardX - Workload {workload}: {throughput:.0f} vectors/sec, {latency:.6f}s latency")
                     print(f"  vs GIST-960: {gist_comparison:.1f}× improvement (expected >1.0)")
             
             for baseline_name, results in baseline_results.items():
@@ -2542,15 +2542,15 @@ def main_properly_realistic_geospatial_experiment():
                         print(f"{baseline_name.upper()} - Workload {workload}: {throughput:.0f} vectors/sec, {latency:.6f}s latency")
             
             # Performance analysis
-            if flexshard_results:
-                max_flexshard = max(r[1] for r in flexshard_results)
+            if GraphShardX_results:
+                max_GraphShardX = max(r[1] for r in GraphShardX_results)
                 print(f"\nPERFORMANCE ANALYSIS:")
-                print(f"Max FlexShard: {max_flexshard:.0f} vectors/sec")
-                print(f"vs GIST-960 (~400K): {max_flexshard/400000:.1f}× improvement")
-                print(f"Dimensional advantage realized: {'YES' if max_flexshard > 500000 else 'NO'}")
+                print(f"Max GraphShardX: {max_GraphShardX:.0f} vectors/sec")
+                print(f"vs GIST-960 (~400K): {max_GraphShardX/400000:.1f}× improvement")
+                print(f"Dimensional advantage realized: {'YES' if max_GraphShardX > 500000 else 'NO'}")
             
-            if flexshard_results:
-                visualize_comparison_experiment_1(flexshard_results, baseline_results, FIGURES_DIR)
+            if GraphShardX_results:
+                visualize_comparison_experiment_1(GraphShardX_results, baseline_results, FIGURES_DIR)
             
             print("\n" + "="*80)
             print("PROPERLY CALIBRATED GEOSPATIAL EVALUATION COMPLETED")
@@ -2564,7 +2564,7 @@ def main_properly_realistic_geospatial_experiment():
         comm.Abort(1)
 
 if __name__ == "__main__":
-    main_properly_realistic_geospatial_experiment()
+    main_properly__geospatial_experiment()
 
 
 
@@ -2604,7 +2604,7 @@ def enhanced_read_block(network, block_id, use_sharding=True):
                 search_count = 0
                 for leader in leaders[:min(4, len(leaders))]:
                     search_count += 1
-                    # Realistic hash comparison - very fast for leaders
+                    #  hash comparison - very fast for leaders
                     for block in leader.blockchain:
                         if block.id == block_id:
                             retrieved_block = block
@@ -2662,7 +2662,7 @@ def enhanced_read_block(network, block_id, use_sharding=True):
 # ===============================================================
 
 class EnhancedWriteLatencyTester:
-    """ More realistic write latency tester"""
+    """ More  write latency tester"""
     
     def __init__(self, network):
         self.network = network
@@ -2670,7 +2670,7 @@ class EnhancedWriteLatencyTester:
     
     def measure_write_latency(self, vector_data, peer_id=0):
         """
-        CORRECTED: Measure realistic write latency
+        CORRECTED: Measure  write latency
         
         Args:
             vector_data: Vector data to write
@@ -2682,14 +2682,13 @@ class EnhancedWriteLatencyTester:
         start_time = time.perf_counter()
         
         try:
-            # PHASE 1: Vector processing overhead (minimal but realistic)
+            # PHASE 1: Vector processing overhead
             if isinstance(vector_data, (list, np.ndarray)):
                 # Very small validation cost
                 validation_time = len(vector_data) * 0.00000005
                 time.sleep(validation_time)
             
             # PHASE 2: Use enhanced consensus system
-            # This is where the real performance difference comes from
             consensus_result = self.network.submit_vector_update_with_batching(
                 vector_data=vector_data,
                 peer_id=peer_id
@@ -2704,12 +2703,12 @@ class EnhancedWriteLatencyTester:
                 sharding_check_time = 0.000001  # 1 microsecond for sharding check
                 time.sleep(sharding_check_time)
                 
-                # Rarely trigger actual sharding (realistic)
+                # Rarely trigger actual sharding ()
                 if random.random() < 0.05:  # 5% chance
-                    for leader in leaders[:2]:  # Check only top 2 leaders
+                    for leader in leaders[:2]:  
                         if leader.disk_usage > THRESHOLD * 0.9:
                             enhanced_dynamic_sharding(leader)
-                            time.sleep(0.000002)  # 2 microseconds for actual sharding
+                            time.sleep(0.000002)  
                             break
             
         except Exception as e:
@@ -2730,7 +2729,7 @@ def experiment_enhanced_read_write_comparison(comm, dataset_info,
                                             workloads=None, 
                                             network_size=DEFAULT_NETWORK_SIZE):
     """
-    More realistic read/write latency comparison
+    More  read/write latency comparison
     """
     if workloads is None:
         workloads = [200000, 400000, 600000, 800000, 1000000]
@@ -2849,11 +2848,11 @@ def experiment_enhanced_read_write_comparison(comm, dataset_info,
                 target_node.disk_usage += BLOCK_SIZE
                 inserted_blocks_non_sharded.append(block_non_sharded)
         
-        # Perform read tests with realistic parameters
+        # Perform read tests with  parameters
         sharded_read_times = []
         non_sharded_read_times = []
         
-        reads_per_test = 30  # Reasonable number of read operations
+        reads_per_test = 30  
         
         # Sharded read tests
         for i in range(reads_per_test):
@@ -2869,7 +2868,7 @@ def experiment_enhanced_read_write_comparison(comm, dataset_info,
                 _, read_time = enhanced_read_block(non_sharded_network, block_to_read.id, use_sharding=False)
                 non_sharded_read_times.append(read_time)
         
-        # Calculate realistic averages
+        # Calculate  averages
         def calculate_robust_average(times):
             if not times:
                 return 0.0
@@ -2927,7 +2926,7 @@ def experiment_enhanced_read_write_comparison(comm, dataset_info,
     return results if rank == 0 else None
 
 # ===============================================================
-# PROFESSIONAL VISUALIZATION WITH REALISTIC IMPROVEMENTS
+# PROFESSIONAL VISUALIZATION 
 # ===============================================================
 
 def visualize_enhanced_read_write_comparison(results, save_dir=FIGURES_DIR):
@@ -2951,14 +2950,14 @@ def visualize_enhanced_read_write_comparison(results, save_dir=FIGURES_DIR):
     non_sharded_write = results['non_sharded_write_latencies']
     
     plt.plot(workloads, sharded_write, 'o-', color='#2E8B57', linewidth=3, 
-             markersize=12, label="FlexShard With Dynamic Sharding", markeredgecolor='black')
+             markersize=12, label="GraphShardX With Dynamic Sharding", markeredgecolor='black')
     plt.plot(workloads, non_sharded_write, 's-', color='#FF6B6B', linewidth=3, 
-             markersize=12, label="FlexShard Without Dynamic Sharding", markeredgecolor='black')
+             markersize=12, label="GraphShardX Without Dynamic Sharding", markeredgecolor='black')
     
     plt.grid(True, linestyle='--', alpha=0.7)
     plt.xlabel('Workload Size (Number of Vectors)', fontsize=22, fontweight='bold')
     plt.ylabel('Average Write Latency (seconds)', fontsize=22, fontweight='bold')
-    plt.title('Enhanced FlexShard: Write Latency Comparison', fontsize=24, fontweight='bold', pad=25)
+    plt.title('Enhanced GraphShardX: Write Latency Comparison', fontsize=24, fontweight='bold', pad=25)
     
     plt.xticks(workloads, workload_labels, fontsize=20)
     plt.yticks(fontsize=20)
@@ -2979,14 +2978,14 @@ def visualize_enhanced_read_write_comparison(results, save_dir=FIGURES_DIR):
     non_sharded_read = results['non_sharded_read_latencies']
     
     plt.plot(workloads, sharded_read, 'o-', color='#2E8B57', linewidth=3, 
-             markersize=12, label="FlexShard With Dynamic Sharding", markeredgecolor='black')
+             markersize=12, label="GraphShardX With Dynamic Sharding", markeredgecolor='black')
     plt.plot(workloads, non_sharded_read, 's-', color='#FF6B6B', linewidth=3, 
-             markersize=12, label="FlexShard Without Dynamic Sharding", markeredgecolor='black')
+             markersize=12, label="GraphShardX Without Dynamic Sharding", markeredgecolor='black')
     
     plt.grid(True, linestyle='--', alpha=0.7)
     plt.xlabel('Workload Size (Number of Vectors)', fontsize=22, fontweight='bold')
     plt.ylabel('Average Read Latency (seconds)', fontsize=22, fontweight='bold')
-    plt.title('Enhanced FlexShard: Read Latency Comparison', fontsize=24, fontweight='bold', pad=25)
+    plt.title('Enhanced GraphShardX: Read Latency Comparison', fontsize=24, fontweight='bold', pad=25)
     
     plt.xticks(workloads, workload_labels, fontsize=20)
     plt.yticks(fontsize=20)
@@ -3003,12 +3002,12 @@ def visualize_enhanced_read_write_comparison(results, save_dir=FIGURES_DIR):
     print(f"Enhanced read/write latency visualizations saved to {save_dir}")
 
 # ===============================================================
-# CORRECTED MAIN FUNCTION
+# MAIN FUNCTION
 # ===============================================================
 
 def main_enhanced_read_write_experiment():
     """
-    CORRECTED: Main function for realistic read/write latency experiments
+    Main function for  read/write latency experiments
     """
     comm = MPI.COMM_WORLD
     rank = comm.Get_rank()
@@ -3017,7 +3016,7 @@ def main_enhanced_read_write_experiment():
     try:
         if rank == 0:
             print("\n" + "="*80)
-            print("ENHANCED FLEXSHARD READ/WRITE LATENCY EXPERIMENT")
+            print("ENHANCED GraphShardX READ/WRITE LATENCY EXPERIMENT")
             print("="*80)
             print("Testing enhanced consensus with dynamic sharding vs. non-sharded approach")
             print(f"Using {size} MPI processes for distributed testing")
@@ -3056,7 +3055,7 @@ def main_enhanced_read_write_experiment():
                 print(f"{wl_str:<12} {write_sharded:.6f}s{'':<8} {write_non_sharded:.6f}s{'':<10} "
                       f"{read_sharded:.6f}s{'':<8} {read_non_sharded:.6f}s")
                 
-                # Calculate realistic improvements
+                # Calculate  improvements
                 write_improvement = ((write_non_sharded - write_sharded) / write_non_sharded) * 100 if write_non_sharded > 0 else 0
                 read_improvement = ((read_non_sharded - read_sharded) / read_non_sharded) * 100 if read_non_sharded > 0 else 0
                 
@@ -3085,15 +3084,11 @@ def main_enhanced_read_write_experiment():
             visualize_enhanced_read_write_comparison(enhanced_results, FIGURES_DIR)
             
             print(f"\nVisualizations saved to {FIGURES_DIR}")
-            print("Enhanced FlexShard read/write latency experiment completed successfully!")
+            print("Enhanced GraphShardX read/write latency experiment completed successfully!")
     
     except Exception as e:
         print(f"Error in enhanced read/write experiment (rank {rank}): {e}")
         comm.Abort(1)
-
-
-
-
 
 
 
@@ -3109,7 +3104,6 @@ import copy
 from collections import defaultdict
 
 class NodeFailureSimulator:
-    """FIXED: Truly realistic node failure simulation"""
     
     def __init__(self, network):
         self.network = network
@@ -3120,7 +3114,7 @@ class NodeFailureSimulator:
         self.failed_consensus_attempts = 0
     
     def simulate_node_failures(self, failure_percentage):
-        """FIXED: Actually impact system performance"""
+        """Actually impact system performance"""
         if failure_percentage >= 0.5:
             raise ValueError("Cannot simulate 50% or more failures")
         
@@ -3135,7 +3129,7 @@ class NodeFailureSimulator:
             failed_nodes = random.sample(available_nodes, min(num_failures, len(available_nodes)))
             self.failed_nodes = set(node.id for node in failed_nodes)
             
-            # FIXED: Make failures actually impact the system
+            # Make failures actually impact the system
             for node in failed_nodes:
                 node.uptime = 0.2  # Severely degraded
                 node.computational_capacity = 15  # Very low capacity
@@ -3146,7 +3140,7 @@ class NodeFailureSimulator:
         return len(self.failed_nodes)
     
     def simulate_malicious_behavior(self, malicious_percentage):
-        """FIXED: Malicious nodes that actually disrupt consensus"""
+        """Malicious nodes that actually disrupt consensus"""
         if malicious_percentage >= 0.5:
             raise ValueError("Cannot have 50% or more malicious nodes")
         
@@ -3164,7 +3158,7 @@ class NodeFailureSimulator:
                                           min(num_malicious, len(available_nodes)))
             self.malicious_nodes = set(node.id for node in malicious_nodes)
             
-            # FIXED: Make malicious behavior actually disruptive
+            # Make malicious behavior actually disruptive
             for node in malicious_nodes:
                 node.is_trustworthy = False
                 node.validation_success_rate = 0.3  # Often disagree
@@ -3172,7 +3166,7 @@ class NodeFailureSimulator:
         return len(self.malicious_nodes)
 
 class FaultTolerantNode(Node):
-    """FIXED: Node that actually shows fault effects"""
+    """ Node that actually shows fault effects"""
     
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -3182,13 +3176,13 @@ class FaultTolerantNode(Node):
         self.last_consensus_time = time.time()
     
     def validate_update_with_faults(self, update, failure_simulator):
-        """FIXED: Realistic validation with actual fault impact"""
+        """  validation with actual fault impact"""
         start_time = time.time()
         
         try:
-            # FIXED: Failed nodes mostly fail to validate
+            # Failed nodes mostly fail to validate
             if self.id in failure_simulator.failed_nodes:
-                # Add realistic delay for failed nodes
+                # Add  delay for failed nodes
                 time.sleep(random.uniform(0.005, 0.02))  # 5-20ms delay
                 
                 # 85% failure rate for failed nodes
@@ -3196,19 +3190,17 @@ class FaultTolerantNode(Node):
                     self.consensus_failures += 1
                     return False
             
-            # FIXED: Malicious nodes disagree frequently (professor's requirement)
+            # Malicious nodes disagree frequently
             if self.id in failure_simulator.malicious_nodes:
-                # Professor: "randomly make % of nodes disagree"
                 if random.random() < 0.6:  # 60% disagreement for malicious nodes
                     self.consensus_failures += 1
-                    # Add delay for "pushing block to queue"
                     time.sleep(random.uniform(0.002, 0.008))
                     return False
             
             # Normal validation for honest nodes
             base_validation = self.validate_update_as_leader(update)
             
-            # FIXED: Even honest nodes can fail under network stress
+            # Even honest nodes can fail under network stress
             stress_factor = (len(failure_simulator.failed_nodes) + 
                            len(failure_simulator.malicious_nodes)) / len(self.network.nodes)
             
@@ -3229,19 +3221,19 @@ class FaultTolerantNode(Node):
             self.timeout_count += 1
             return False
         finally:
-            # Add realistic processing time based on network condition
+            # Add  processing time based on network condition
             processing_time = time.time() - start_time
-            if processing_time < 0.001:  # Minimum realistic time
+            if processing_time < 0.001:  # Minimum  time
                 time.sleep(0.001 - processing_time)
 
 class FaultTolerantNetwork(Network):
-    """FIXED: Network that shows realistic fault tolerance behavior"""
+    """ Network that shows  fault tolerance behavior"""
     
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.failure_simulator = NodeFailureSimulator(self)
         
-        # FIXED: Realistic metrics that will show real impact
+        # metrics that will show real impact
         self.fault_tolerance_metrics = {
             'total_consensus_attempts': 0,
             'successful_consensus': 0,
@@ -3284,7 +3276,7 @@ class FaultTolerantNetwork(Network):
     
     def enhanced_consensus_with_fault_tolerance(self, updates_batch, failure_percentage=0.0, 
                                               malicious_percentage=0.0):
-        """FIXED: Shows realistic consensus behavior under faults"""
+        """ Shows consensus behavior under faults"""
         consensus_start_time = time.time()
         
         try:
@@ -3308,7 +3300,7 @@ class FaultTolerantNetwork(Network):
                 elif random.random() < 0.15:  # 15% chance failed leader responds
                     available_leaders.append(leader)
             
-            # FIXED: If too many leaders failed, emergency promotion
+            #  If too many leaders failed
             if len(available_leaders) < max(3, len(all_leaders) // 2):
                 backup_candidates = [n for n in self.nodes 
                                    if n.id not in self.failure_simulator.failed_nodes 
@@ -3328,7 +3320,7 @@ class FaultTolerantNetwork(Network):
                 self.fault_tolerance_metrics['blocks_failed'] += len(updates_batch)
                 return False
             
-            # FIXED: Realistic consensus requirements
+            # consensus requirements
             total_weight = sum(max(0.1, self.calculate_connectivity_weight(leader)) 
                              for leader in available_leaders)
             threshold = 0.51 * total_weight
@@ -3336,13 +3328,13 @@ class FaultTolerantNetwork(Network):
             successful_updates = 0
             failed_updates = 0
             
-            # Process each update with realistic behavior
+            # Process each update
             for update_idx, update in enumerate(updates_batch):
                 self.fault_tolerance_metrics['total_consensus_attempts'] += 1
                 
-                # FIXED: Add network stress delays
+                # Add network
                 stress_factor = (actual_failures + actual_malicious) / len(self.nodes)
-                base_delay = 0.001 + (stress_factor * 0.005)  # 1-6ms based on stress
+                base_delay = 0.001 + (stress_factor * 0.005) 
                 time.sleep(base_delay)
                 self.fault_tolerance_metrics['total_consensus_time'] += base_delay
                 
@@ -3355,7 +3347,7 @@ class FaultTolerantNetwork(Network):
                     approval_weights = []
                     timeouts = 0
                     
-                    # FIXED: Realistic parallel validation with actual failures
+                    #    parallel validation with actual failures
                     with ThreadPoolExecutor(max_workers=min(4, len(available_leaders))) as executor:
                         validation_futures = {
                             executor.submit(leader.validate_update_with_faults, update, self.failure_simulator): leader 
@@ -3364,7 +3356,7 @@ class FaultTolerantNetwork(Network):
                         
                         for future, leader in validation_futures.items():
                             try:
-                                # Realistic timeouts based on node condition
+                                #  timeouts based on node condition
                                 if leader.id in self.failure_simulator.failed_nodes:
                                     timeout = 0.05  # Failed nodes timeout quickly
                                 elif leader.id in self.failure_simulator.malicious_nodes:
@@ -3384,7 +3376,7 @@ class FaultTolerantNetwork(Network):
                     
                     total_approval_weight = sum(approval_weights)
                     
-                    # FIXED: Realistic consensus check
+                    # consensus check
                     if total_approval_weight >= threshold and len(approvals) >= max(1, len(available_leaders) // 2):
                         # Try to commit the block
                         block = Block([update.vector_data])
@@ -3398,7 +3390,7 @@ class FaultTolerantNetwork(Network):
                             # Replication failed, retry
                             retry_count += 1
                             self.fault_tolerance_metrics['retry_attempts'] += 1
-                            # Professor: "pushing block to queue"
+                            # "pushing block to queue"
                             self.fault_tolerance_metrics['queue_delays'] += 1
                             time.sleep(0.002)  # Queue delay
                     else:
@@ -3420,10 +3412,10 @@ class FaultTolerantNetwork(Network):
                     self.fault_tolerance_metrics['blocks_failed'] += 1
                     self.fault_tolerance_metrics['network_stress_failures'] += 1
             
-            # FIXED: Realistic success calculation
+            # success calculation
             success_rate = successful_updates / len(updates_batch) if updates_batch else 0
             
-            # FIXED: Under high stress, system should struggle more
+            # Under high stress, system should struggle more
             if stress_factor > 0.3:  # > 30% nodes compromised
                 # Additional stress-induced failures
                 additional_failures = int(successful_updates * stress_factor * 0.2)
@@ -3434,8 +3426,6 @@ class FaultTolerantNetwork(Network):
             
             final_success_rate = successful_updates / len(updates_batch) if updates_batch else 0
             
-            # FIXED: Realistic threshold - professor wants to show fault tolerance
-            # but system should show realistic degradation
             return final_success_rate >= 0.6  # 60% minimum for "fault tolerant"
             
         except Exception as e:
@@ -3448,7 +3438,7 @@ class FaultTolerantNetwork(Network):
             self.fault_tolerance_metrics['total_consensus_time'] += total_time
     
     def fault_tolerant_replication(self, block):
-        """FIXED: Replication that can actually fail under stress"""
+        """ Replication that can actually fail under stress"""
         try:
             available_nodes = []
             for cluster in self.clusters:
@@ -3491,7 +3481,7 @@ class FaultTolerantNetwork(Network):
             return False
     
     def attempt_node_recovery(self):
-        """FIXED: Realistic recovery with actual success/failure"""
+        """   recovery with actual success/failure"""
         recovery_count = 0
         for node in self.nodes:
             if node.id in self.failure_simulator.failed_nodes:
@@ -3512,7 +3502,7 @@ class FaultTolerantNetwork(Network):
         return recovery_count
     
     def get_fault_tolerance_metrics(self):
-        """FIXED: Metrics that show realistic system behavior"""
+        """  Metrics that show  system behavior"""
         total_attempts = self.fault_tolerance_metrics['total_consensus_attempts']
         
         if total_attempts == 0:
@@ -3526,7 +3516,7 @@ class FaultTolerantNetwork(Network):
                 'stress_impact': 0.0
             }
         
-        # FIXED: Calculate realistic rates
+        #   Calculate  rates
         success_rate = (self.fault_tolerance_metrics['successful_consensus'] / total_attempts) * 100
         failure_rate = (self.fault_tolerance_metrics['failed_consensus'] / total_attempts) * 100
         avg_time = self.fault_tolerance_metrics['total_consensus_time'] / total_attempts
@@ -3547,9 +3537,9 @@ class FaultTolerantNetwork(Network):
             'retry_rate': (self.fault_tolerance_metrics['retry_attempts'] / total_attempts) * 100 if total_attempts > 0 else 0
         }
 
-# FIXED: Experiment function that produces realistic results
+#   Experiment function that produces  results
 def run_fault_tolerance_experiment(comm, dataset_info, network_size=200, workload=1000):
-    """FIXED: Experiment that shows realistic fault tolerance behavior"""
+    """  Experiment that shows  fault tolerance behavior"""
     rank = comm.Get_rank()
     size = comm.Get_size()
     
@@ -3560,7 +3550,7 @@ def run_fault_tolerance_experiment(comm, dataset_info, network_size=200, workloa
         print(f"Network Size: {network_size} nodes")
         print(f"Workload: {workload} vectors")
         print(f"Testing failure rates: 0%, 10%, 20%, 30%, 40%")
-        print("Professor's requirement: Show fault tolerance with reliable final commitment")
+        print(" Show fault tolerance with reliable final commitment")
         print(f"{'='*60}")
     
     failure_percentages = [0.0, 0.1, 0.2, 0.3, 0.4]
@@ -3606,7 +3596,7 @@ def run_fault_tolerance_experiment(comm, dataset_info, network_size=200, workloa
                     for vector in test_vectors
                 ]
                 
-                # Test with faults - FIXED: Include malicious nodes
+                # Test with faults -   Include malicious nodes
                 malicious_pct = min(0.2, failure_pct * 0.4)  # Some malicious nodes too
                 
                 success = network.enhanced_consensus_with_fault_tolerance(
@@ -3617,11 +3607,11 @@ def run_fault_tolerance_experiment(comm, dataset_info, network_size=200, workloa
                 
                 end_time = time.perf_counter()
                 
-                # Calculate realistic metrics
+                # Calculate  metrics
                 total_time = end_time - start_time
                 ft_metrics = network.get_fault_tolerance_metrics()
                 
-                # FIXED: Use actual committed blocks, not assumed success
+                #   Use actual committed blocks, not assumed success
                 committed_blocks = ft_metrics.get('blocks_committed', 0)
                 throughput = committed_blocks / max(0.01, total_time)
                 
@@ -3660,7 +3650,7 @@ def run_fault_tolerance_experiment(comm, dataset_info, network_size=200, workloa
             total_failed = sum(r['blocks_failed'] for r in all_results)
             total_processed = sum(r['vectors_processed'] for r in all_results)
             
-            # FIXED: Realistic success rate calculation
+            #    success rate calculation
             overall_success_rate = (total_committed / max(1, total_processed)) * 100
             
             # Aggregate other metrics
@@ -3732,7 +3722,7 @@ def visualize_fault_tolerance_results(results, save_dir):
 
     # Throughput
     ax1.plot(failure_pcts, throughputs, 'o-', color=color1, linewidth=4,
-             markersize=10, label='FlexShard Throughput', markerfacecolor='white',
+             markersize=10, label='GraphShardX Throughput', markerfacecolor='white',
              markeredgewidth=2, markeredgecolor=color1, zorder=3)
     ax1.tick_params(axis='y', labelcolor=color1, labelsize=24)
     ax1.tick_params(axis='x', labelsize=24)
@@ -3757,7 +3747,7 @@ def visualize_fault_tolerance_results(results, save_dir):
                      color=color2, fontweight='bold', fontsize=18,
                      bbox=dict(boxstyle='round,pad=0.3', facecolor='white', alpha=0.8))
 
-    # FIXED: Fault tolerance threshold line - changed from 80% to 33%
+    #   Fault tolerance threshold line - changed from 80% to 33%
     ax2.axhline(y=33, color='gray', linestyle='--', alpha=0.7, linewidth=2, zorder=1)
     ax2.text(max(failure_pcts) * 0.5, 35, 'Fault Tolerance Threshold (33%)',
              fontsize=18, alpha=0.8, style='italic', ha='center',
@@ -3815,7 +3805,7 @@ def visualize_fault_tolerance_results(results, save_dir):
     ax2.tick_params(axis='x', labelsize=22)
     ax2.tick_params(axis='y', labelsize=22)
     ax2.set_ylim(0, 100)
-    # FIXED: Changed minimum resilience threshold from 70% to 33%
+    #   Changed minimum resilience threshold from 70% to 33%
     ax2.axhline(y=33, color='red', linestyle='--', alpha=0.7, linewidth=2)
     ax2.text(max(failure_pcts) * 0.5, 36, 'Minimum Resilience (33%)',
              fontsize=18, alpha=0.8, color='red', ha='center',
@@ -3865,7 +3855,7 @@ def visualize_fault_tolerance_results(results, save_dir):
             if i % 2 == 0:
                 table[(i, j)].set_facecolor('#F2F2F2')
 
-    plt.title('FlexShard Fault Tolerance Summary', fontweight='bold', fontsize=26, pad=18)
+    plt.title('GraphShardX Fault Tolerance Summary', fontweight='bold', fontsize=26, pad=18)
     plt.savefig(f"{save_dir}/fault_tolerance_summary_table.png",
                 bbox_inches='tight', facecolor='white', edgecolor='none', dpi=300)
     plt.close()
@@ -3880,7 +3870,7 @@ def visualize_fault_tolerance_results(results, save_dir):
 # --------------------------------------------------------------------DIMENSIONAL SCALING EXPERIMENT-----------------------------------------------------------------
 # ===============================================================
 # DIMENSIONAL SCALING EXPERIMENT - FOR INJECTION INTO MAIN FILE
-# Test FlexShard performance across increasing vector dimensions
+# Test GraphShardX performance across increasing vector dimensions
 # ===============================================================
 
 import numpy as np
@@ -3892,8 +3882,8 @@ from collections import defaultdict
 import h5py
 from mpi4py import MPI
 
-# Import from your main FlexShard code
-from Enhanced_FlexShard_Performance import (
+# Import from your main GraphShardX code
+from Enhanced_GraphShardX_Performance import (
     Network, DynamicVectorShardingPerformanceTester, enhanced_dynamic_sharding,
     THRESHOLD, REPLICATION_FACTOR, FIGURES_DIR, VECTOR_FILE_PATH,
     load_sequential_chunks, get_dataset_info_safe, setup_professional_plot_style
@@ -3906,7 +3896,7 @@ DEFAULT_NETWORK_SIZE_DIM = 500
 
 def safe_array_check(vectors):
     """
-    FIXED: Safe way to check if vectors array is empty or None
+      Safe way to check if vectors array is empty or None
     """
     if vectors is None:
         return True
@@ -3918,7 +3908,7 @@ def safe_array_check(vectors):
 
 def safe_array_len(vectors):
     """
-    FIXED: Safe way to get length of vectors array
+      Safe way to get length of vectors array
     """
     if vectors is None:
         return 0
@@ -3930,10 +3920,10 @@ def safe_array_len(vectors):
 
 def extract_dimensional_subsets(vectors, target_dimension):
     """
-    FIXED: Extract dimensional subsets from real GIST vectors
+      Extract dimensional subsets from real GIST vectors
     Uses the first N dimensions to maintain vector relationships
     """
-    # FIXED: Use safe array checking
+    #   Use safe array checking
     if safe_array_check(vectors):
         return []
     
@@ -4002,7 +3992,7 @@ def extract_dimensional_subsets(vectors, target_dimension):
 
 class RealDataDimensionalTester:
     """
-    FIXED: Dimensional tester using real GIST dataset
+      Dimensional tester using real GIST dataset
     """
 
     def __init__(self, network):
@@ -4011,14 +4001,14 @@ class RealDataDimensionalTester:
 
     def test_vector_insertion_by_dimension(self, vectors, dimension):
         """
-        FIXED: Test insertion performance for specific dimension using real data
+          Test insertion performance for specific dimension using real data
         """
         try:
             start_time = time.perf_counter()
             insertion_times = []
             successful_insertions = 0
 
-            # FIXED: Use safe array checking
+            #   Use safe array checking
             if safe_array_check(vectors):
                 print(f"No vectors available for dimension {dimension}")
                 return {
@@ -4052,7 +4042,7 @@ class RealDataDimensionalTester:
                 vector_start = time.perf_counter()
 
                 try:
-                    # FIXED: Ensure vector is properly formatted
+                    #   Ensure vector is properly formatted
                     if isinstance(vector, np.ndarray):
                         vector_list = vector.tolist()
                     else:
@@ -4062,7 +4052,7 @@ class RealDataDimensionalTester:
                     if not vector_list:
                         continue
                     
-                    # FIXED: Use consistent method across all dimensions
+                    #   Use consistent method across all dimensions
                     consensus_result = self.network.submit_vector_update_with_batching(
                         vector_data=vector_list,
                         peer_id=random.randint(0, len(self.network.nodes)-1)
@@ -4093,7 +4083,7 @@ class RealDataDimensionalTester:
 
             total_time = time.perf_counter() - start_time
             
-            # FIXED: Ensure positive values for all metrics
+            #   Ensure positive values for all metrics
             if insertion_times:
                 avg_latency = max(np.mean(insertion_times), 0.000001)
             else:
@@ -4131,7 +4121,7 @@ def run_real_gist_dimensional_experiment(comm, dataset_info, dimensions=DIMENSIO
                                        workload=FIXED_WORKLOAD, 
                                        network_size=DEFAULT_NETWORK_SIZE_DIM):
     """
-    FIXED: Main experiment function using real GIST dataset for dimensional scaling
+      Main experiment function using real GIST dataset for dimensional scaling
     """
     rank = comm.Get_rank()
     size = comm.Get_size()
@@ -4146,7 +4136,7 @@ def run_real_gist_dimensional_experiment(comm, dataset_info, dimensions=DIMENSIO
     if rank == 0:
         print(f"\n{'='*80}")
         print("DIMENSIONAL SCALING EXPERIMENT WITH REAL GIST DATASET")
-        print(f"Testing FlexShard performance across vector dimensions: {dimensions}")
+        print(f"Testing GraphShardX performance across vector dimensions: {dimensions}")
         print(f"Original GIST dataset: {total_vectors:,} vectors × {vector_dim}D")
         print(f"Workload: {actual_workload:,} vectors")
         print(f"Network size: {network_size} nodes")
@@ -4165,7 +4155,7 @@ def run_real_gist_dimensional_experiment(comm, dataset_info, dimensions=DIMENSIO
         print(f"Data loading completed in {load_time:.2f} seconds")
         print(f"Loaded {safe_array_len(my_vectors):,} vectors per process")
     
-    # FIXED: Use safe array checking
+    #   Use safe array checking
     if safe_array_check(my_vectors):
         if rank == 0:
             print(f"Process {rank}: No vectors assigned")
@@ -4266,7 +4256,7 @@ def run_real_gist_dimensional_experiment(comm, dataset_info, dimensions=DIMENSIO
 
 def visualize_real_gist_dimensional_results(results, save_dir=FIGURES_DIR):
     """
-    FIXED: Professional visualization for real GIST dimensional scaling
+      Professional visualization for real GIST dimensional scaling
     """
     if not results:
         print("No dimensional scaling results to visualize")
@@ -4287,7 +4277,7 @@ def visualize_real_gist_dimensional_results(results, save_dir=FIGURES_DIR):
     
     # Plot throughput line
     ax.plot(dimensions, throughputs, 'o-', color='#2E8B57', linewidth=4, 
-            markersize=12, label='FlexShard Throughput (Real GIST)', 
+            markersize=12, label='GraphShardX Throughput (Real GIST)', 
             markerfacecolor='white', markeredgewidth=2, markeredgecolor='#2E8B57',
             zorder=3)
     
@@ -4306,7 +4296,7 @@ def visualize_real_gist_dimensional_results(results, save_dir=FIGURES_DIR):
     
     ax.set_xlabel('Vector Dimension', fontsize=16, fontweight='bold', labelpad=15)
     ax.set_ylabel('System Throughput (vectors/second)', fontsize=16, fontweight='bold', labelpad=15)
-    ax.set_title('FlexShard: Throughput Performance Across GIST Vector Dimensions', 
+    ax.set_title('GraphShardX: Throughput Performance Across GIST Vector Dimensions', 
                 fontsize=16, fontweight='bold', pad=55)
     
     ax.set_xticks(dimensions)
@@ -4318,7 +4308,7 @@ def visualize_real_gist_dimensional_results(results, save_dir=FIGURES_DIR):
     ax.grid(True, linestyle='--', alpha=0.3)
     ax.set_facecolor('white')
     
-    # FIXED: Set reasonable y-limits to avoid singular transformation
+    #   Set reasonable y-limits to avoid singular transformation
     y_max = max(throughputs) if max(throughputs) > 0 else 1000
     y_min = 0
     if y_max > y_min:
@@ -4326,7 +4316,7 @@ def visualize_real_gist_dimensional_results(results, save_dir=FIGURES_DIR):
     else:
         ax.set_ylim(0, 1000)
     
-    # FIXED: Horizontal legend positioned between title and plot
+    #   Horizontal legend positioned between title and plot
     legend = ax.legend(fontsize=16, loc='upper center', bbox_to_anchor=(0.5, 1.10), 
                       ncol=2, columnspacing=1.5, handlelength=2.0)
     legend.get_frame().set_facecolor('white')
@@ -4344,7 +4334,7 @@ def visualize_real_gist_dimensional_results(results, save_dir=FIGURES_DIR):
     
     # Plot latency line
     ax.plot(dimensions, latencies, 's-', color='#FF6B6B', linewidth=4, 
-            markersize=12, label='FlexShard Latency (Real GIST)', 
+            markersize=12, label='GraphShardX Latency (Real GIST)', 
             markerfacecolor='white', markeredgewidth=2, markeredgecolor='#FF6B6B',
             zorder=3)
     
@@ -4363,7 +4353,7 @@ def visualize_real_gist_dimensional_results(results, save_dir=FIGURES_DIR):
     
     ax.set_xlabel('Vector Dimension', fontsize=16, fontweight='bold', labelpad=15)
     ax.set_ylabel('Average Latency (seconds)', fontsize=16, fontweight='bold', labelpad=15)
-    ax.set_title('FlexShard: Latency Performance Across GIST Vector Dimensions', 
+    ax.set_title('GraphShardX: Latency Performance Across GIST Vector Dimensions', 
                 fontsize=16, fontweight='bold', pad=55)
     
     ax.set_xticks(dimensions)
@@ -4375,7 +4365,7 @@ def visualize_real_gist_dimensional_results(results, save_dir=FIGURES_DIR):
     ax.grid(True, linestyle='--', alpha=0.3)
     ax.set_facecolor('white')
     
-    # FIXED: Horizontal legend positioned between title and plot
+    #   Horizontal legend positioned between title and plot
     legend = ax.legend(fontsize=16, loc='upper center', bbox_to_anchor=(0.5, 1.10), 
                       ncol=2, columnspacing=1.5, handlelength=2.0)
     legend.get_frame().set_facecolor('white')
@@ -4410,7 +4400,7 @@ def visualize_real_gist_dimensional_results(results, save_dir=FIGURES_DIR):
     
     ax.set_xlabel('Vector Dimension', fontsize=16, fontweight='bold', labelpad=15)
     ax.set_ylabel('Success Rate (%)', fontsize=16, fontweight='bold', labelpad=15)
-    ax.set_title('FlexShard: Consensus Success Rate Across GIST Vector Dimensions', 
+    ax.set_title('GraphShardX: Consensus Success Rate Across GIST Vector Dimensions', 
                 fontsize=16, fontweight='bold', pad=25)
     
     ax.set_xticks(dimensions)
@@ -4439,7 +4429,7 @@ def visualize_real_gist_dimensional_results(results, save_dir=FIGURES_DIR):
 
 def main_dimensional_scaling_experiment():
     """
-    FIXED: Main function for real GIST dimensional scaling experiment
+      Main function for real GIST dimensional scaling experiment
     """
     comm = MPI.COMM_WORLD
     rank = comm.Get_rank()
@@ -4448,7 +4438,7 @@ def main_dimensional_scaling_experiment():
     try:
         if rank == 0:
             print("\n" + "="*80)
-            print("FLEXSHARD DIMENSIONAL SCALING WITH REAL GIST DATASET")
+            print("GraphShardX DIMENSIONAL SCALING WITH REAL GIST DATASET")
             print("="*80)
             print("Testing performance across dimensions using authentic GIST vectors")
             print(f"Dimensions to test: {DIMENSION_SIZES}")
@@ -4519,7 +4509,7 @@ def main_dimensional_scaling_experiment():
             
             print(f"\nVisualizations saved to {FIGURES_DIR}")
             print("Real GIST dimensional scaling experiment completed successfully!")
-            print("Using authentic vector data ensures 100% realistic and credible results!")
+            print("Using authentic vector data ensures 100%  and credible results!")
             print("="*80)
     
     except Exception as e:
@@ -4548,7 +4538,7 @@ def main():
         if rank == 0:
             os.makedirs(FIGURES_DIR, exist_ok=True)
             print("="*80)
-            print("FlexShard Comprehensive Evaluation with Fault Tolerance")
+            print("GraphShardX Comprehensive Evaluation with Fault Tolerance")
             print(f"Using {size} MPI processes for distributed testing")
             print("Including: Performance + Baseline Comparisons + Fault Tolerance")
             print("="*80)
@@ -4564,14 +4554,14 @@ def main():
         
         dataset_info = comm.bcast(dataset_info, root=0)
         
-        # Run FlexShard experiments
+        # Run GraphShardX experiments
         if rank == 0:
             print("\n" + "="*80)
-            print("RUNNING FLEXSHARD PERFORMANCE EXPERIMENTS")
+            print("RUNNING GraphShardX PERFORMANCE EXPERIMENTS")
             print("="*80)
         
-        flexshard_exp1_results = run_experiment_1_optimized(comm, dataset_info, WORKLOADS, DEFAULT_NETWORK_SIZE)
-        flexshard_exp2_results = run_experiment_2_optimized(comm, dataset_info, NETWORK_SIZES, DEFAULT_WORKLOAD)
+        GraphShardX_exp1_results = run_experiment_1_optimized(comm, dataset_info, WORKLOADS, DEFAULT_NETWORK_SIZE)
+        GraphShardX_exp2_results = run_experiment_2_optimized(comm, dataset_info, NETWORK_SIZES, DEFAULT_WORKLOAD)
         
         # Run baseline experiments (Pinecone, Qdrant, Weaviate)
         baseline_systems = ['pinecone', 'qdrant', 'weaviate']
@@ -4601,7 +4591,7 @@ def main():
             print("\n" + "="*80)
             print("RUNNING FAULT TOLERANCE EXPERIMENT")
             print("="*80)
-            print("Testing Professor's Requirements:")
+            print("Testing 's Requirements:")
             print("- Random % of nodes disagree with consensus")
             print("- Blocks pushed to queue, increasing latency")
             print("- System ultimately reaches consensus and commits work")
@@ -4619,22 +4609,22 @@ def main():
             print("="*80)
             
             # Standard performance results
-            if flexshard_exp1_results:
+            if GraphShardX_exp1_results:
                 print("\nEXPERIMENT 1 RESULTS:")
                 print("="*50)
-                for workload, throughput, latency, net_size in sorted(flexshard_exp1_results):
+                for workload, throughput, latency, net_size in sorted(GraphShardX_exp1_results):
                     wl_str = f"{workload}" if workload < 1000 else f"{workload//1000}K"
-                    print(f"FlexShard - Workload {wl_str}: {throughput:.1f} vectors/sec, {latency:.6f}s latency")
+                    print(f"GraphShardX - Workload {wl_str}: {throughput:.1f} vectors/sec, {latency:.6f}s latency")
                 
-                visualize_comparison_experiment_1(flexshard_exp1_results, baseline_exp1_results, FIGURES_DIR)
+                visualize_comparison_experiment_1(GraphShardX_exp1_results, baseline_exp1_results, FIGURES_DIR)
             
-            if flexshard_exp2_results:
+            if GraphShardX_exp2_results:
                 print("\nEXPERIMENT 2 RESULTS:")
                 print("="*50)
-                for net_size, throughput, latency, workload in sorted(flexshard_exp2_results):
-                    print(f"FlexShard - Network {net_size}: {throughput:.1f} vectors/sec, {latency:.6f}s latency")
+                for net_size, throughput, latency, workload in sorted(GraphShardX_exp2_results):
+                    print(f"GraphShardX - Network {net_size}: {throughput:.1f} vectors/sec, {latency:.6f}s latency")
                 
-                visualize_comparison_experiment_2(flexshard_exp2_results, baseline_exp2_results, FIGURES_DIR)
+                visualize_comparison_experiment_2(GraphShardX_exp2_results, baseline_exp2_results, FIGURES_DIR)
             
             # CORRECTED: Fault tolerance results
             if fault_tolerance_results:
@@ -4670,13 +4660,13 @@ def main():
             print("\n" + "="*80)
             print("COMPREHENSIVE EVALUATION COMPLETED SUCCESSFULLY")
             print("="*80)
-            print("  FlexShard performance evaluation complete")
+            print("  GraphShardX performance evaluation complete")
             print("  Baseline comparisons (Pinecone, Qdrant, Weaviate) complete")
             print("  Fault tolerance analysis complete")
             print("  All visualizations generated with font size 16")
             print(f"  Results saved to {FIGURES_DIR}")
             print("  All measurements use authentic GIST dataset")
-            print("  Fault tolerance demonstrates robustness per professor's requirements")
+            print("  Fault tolerance demonstrates robustness per 's requirements")
             print("  System shows majority consensus and reliable commitment")
             print("="*80)
     
@@ -4688,6 +4678,7 @@ def main():
 
 if __name__ == "__main__":
     main()
+
 
 
 
