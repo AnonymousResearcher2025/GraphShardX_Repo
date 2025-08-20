@@ -445,7 +445,7 @@ class Network:
             self.error_log['replication_failures'] += 1
             return False
 
-    # ALL OTHER METHODS FROM YOUR WORKING CODE
+    
     def calculate_optimal_shard_boundaries(self, blocks, num_shards):
         vectors = [block.features[0] for block in blocks]
         if len(vectors) < num_shards:
@@ -545,7 +545,7 @@ class DynamicVectorShardingPerformanceTester:
 
 
 # ===================================================================
-# HELPER FUNCTIONS - CORRECTED
+# HELPER FUNCTIONS
 # ===================================================================
 
 def validate_block(block, node, validation_criteria):
@@ -612,7 +612,7 @@ def scale_free_consensus(block, network, use_sharding=True):
         return False
 
 def enhanced_dynamic_sharding(node):
-    """Real dynamic sharding when needed"""
+    """Real dynamic sharding """
     if isinstance(node, Node):
         if node.disk_usage <= THRESHOLD:
             return
@@ -672,7 +672,6 @@ def rebalance_network(network, use_sharding=False):
 
 # ===============================================================
 # BASELINE SYSTEMS IMPLEMENTATION FOR FLEXSHARD COMPARISON
-# Add this to your existing code - 100% authentic implementations
 # ===============================================================
 
 import faiss
@@ -704,7 +703,7 @@ class QdrantBaseline:
         self.collection_name = collection_name
         self.vectors_added = 0
         self.client = None
-        self.use_local_simulation = True  # Set to False if you have Qdrant server running
+        self.use_local_simulation = True  
         
         # Local simulation for realistic performance
         self.local_vectors = []
@@ -966,7 +965,7 @@ class WeaviateBaseline:
             return time.perf_counter() - start_time
     
     def get_memory_usage(self):
-        """Estimate memory usage"""
+        """ memory usage"""
         # Simulate Weaviate memory overhead (higher due to HTTP and graph structure)
         base_memory = len(self.local_vectors) * self.vector_dim * 4 / (1024 * 1024)
         overhead = base_memory * 0.4  # Weaviate has significant overhead
@@ -989,7 +988,7 @@ from typing import List, Dict, Any
 
 
 class PineconeBaseline:
-    """Authentic Pinecone implementation for realistic comparison"""
+    """ Pinecone implementation for comparison"""
     
     def __init__(self, vector_dim=960, index_name="flexshard-test", environment="us-west1-gcp"):
         self.vector_dim = vector_dim
@@ -1011,7 +1010,7 @@ class PineconeBaseline:
         self.pending_batch = []
         
     def setup_pinecone_client(self):
-        """Setup Pinecone client - only if API key is available"""
+        """Setup Pinecone client """
         try:
             # Initialize Pinecone (requires API key)
             pinecone.init(
@@ -1048,7 +1047,7 @@ class PineconeBaseline:
             self.index = None
     
     def insert_vector(self, vector):
-        """Insert vector with realistic Pinecone performance characteristics"""
+        """Insert vector with Pinecone performance characteristics"""
         start_time = time.perf_counter()
         
         try:
@@ -1111,7 +1110,7 @@ class PineconeBaseline:
         return time.perf_counter() - start_time
     
     def search_vector(self, query_vector, k=5):
-        """Perform similarity search with realistic Pinecone characteristics"""
+        """Perform similarity search with Pinecone characteristics"""
         start_time = time.perf_counter()
         
         try:
@@ -1199,7 +1198,7 @@ class PineconeBaseline:
                 return {'total_vector_count': self.vectors_added}
 
 # ===============================================================
-# UPDATED BASELINE TESTER CLASS
+# BASELINE TESTER CLASS
 # ===============================================================
 
 class BaselineTester:
@@ -1286,7 +1285,6 @@ def get_dataset_info_safe(file_path):
 
 
 def load_sequential_chunks(file_path, workload, num_processes, process_rank, dataset_key='train'):
-    """FIXED: The method that's actually being called in your working code"""
     comm = MPI.COMM_WORLD
     
     vectors_per_process = workload // num_processes
@@ -1333,11 +1331,11 @@ def load_sequential_chunks(file_path, workload, num_processes, process_rank, dat
     return chunk
 
 # ===============================================================
-# EXPERIMENT FUNCTIONS - SAME AS YOUR WORKING CODE
+# EXPERIMENT FUNCTIONS
 # ===============================================================
 
 def run_experiment_1_optimized(comm, dataset_info, workloads=WORKLOADS, network_size=DEFAULT_NETWORK_SIZE):
-    """Your working experiment 1 function"""
+    """ working experiment 1 function"""
     rank = comm.Get_rank()
     size = comm.Get_size()
     
@@ -1441,7 +1439,7 @@ def run_experiment_1_optimized(comm, dataset_info, workloads=WORKLOADS, network_
     return None
 
 def run_experiment_2_optimized(comm, dataset_info, network_sizes=NETWORK_SIZES, workload=DEFAULT_WORKLOAD):
-    """Your working experiment 2 function"""
+    """ working experiment 2 function"""
     rank = comm.Get_rank()
     size = comm.Get_size()
     
@@ -1541,7 +1539,7 @@ def run_experiment_2_optimized(comm, dataset_info, network_sizes=NETWORK_SIZES, 
 # ===============================================================
 
 def run_baseline_experiment_1(comm, dataset_info, baseline_type, workloads=WORKLOADS, network_size=DEFAULT_NETWORK_SIZE):
-    """Run Experiment 1 for baseline systems (updated for Pinecone)"""
+    """Run Experiment 1 for baseline systems """
     rank = comm.Get_rank()
     size = comm.Get_size()
     
@@ -1626,7 +1624,7 @@ def run_baseline_experiment_1(comm, dataset_info, baseline_type, workloads=WORKL
     return None
 
 def run_baseline_experiment_2(comm, dataset_info, baseline_type, network_sizes=NETWORK_SIZES, workload=DEFAULT_WORKLOAD):
-    """Run Experiment 2 for baseline systems (updated for Pinecone)"""
+    """Run Experiment 2 for baseline systems """
     rank = comm.Get_rank()
     size = comm.Get_size()
     
@@ -1707,7 +1705,7 @@ def run_baseline_experiment_2(comm, dataset_info, baseline_type, network_sizes=N
 
 
 # ===============================================================
-# IMPROVED PROFESSIONAL VISUALIZATION FUNCTIONS
+# VISUALIZATION FUNCTIONS
 # ===============================================================
 
 import matplotlib.pyplot as plt
@@ -1721,7 +1719,7 @@ plt.style.use('default')
 sns.set_palette("husl")
 
 def setup_professional_plot_style():
-    """Setup professional matplotlib style with MUCH LARGER fonts for publication"""
+    
     plt.rcParams.update({
         'font.family': 'serif',
         'font.serif': ['Times New Roman', 'DejaVu Serif'],
@@ -1748,7 +1746,7 @@ def setup_professional_plot_style():
     })
 
 def visualize_comparison_experiment_1(flexshard_results, baseline_results, save_dir):
-    """COMPLETELY FIXED: Professional visualization with horizontal top legends for Experiment 1"""
+    """ visualization with horizontal top legends for Experiment 1"""
     if not flexshard_results:
         print("No FlexShard results to visualize")
         return
@@ -1890,7 +1888,7 @@ def visualize_comparison_experiment_1(flexshard_results, baseline_results, save_
     print(f"Professional Experiment 1 visualizations saved to {save_dir}")
 
 def visualize_comparison_experiment_2(flexshard_results, baseline_results, save_dir):
-    """COMPLETELY FIXED: Professional visualization with horizontal top legends for Experiment 2"""
+    """ Professional visualization with horizontal top legends for Experiment 2"""
     if not flexshard_results:
         print("No FlexShard results to visualize")
         return
@@ -2056,7 +2054,7 @@ rank = comm.Get_rank()
 size = comm.Get_size()
 
 # ===============================================================
-# PROPERLY REALISTIC GEOSPATIAL CONFIGURATION
+# PROPERLY GEOSPATIAL CONFIGURATION
 # ===============================================================
 
 GEOSPATIAL_DATASET_PATH = "C:/Users/uni/Desktop/Vector-Dataset/countries_dataset.shp"
@@ -2064,15 +2062,7 @@ FIGURES_DIR = "C:/Users/uni/Desktop/Geospatial_Results"
 DEFAULT_NETWORK_SIZE = 500
 GEOSPATIAL_WORKLOADS = [50, 100, 150, 200, 258]
 
-# ===============================================================
-# CORRECTED: SMALL VECTORS SHOULD PERFORM MUCH BETTER
-# ===============================================================
-
 def load_geospatial_dataset_realistic(file_path):
-    """
-    CORRECTED: Load geospatial data with proper performance expectations
-    Small, low-dimensional vectors should be FAST
-    """
     try:
         if rank == 0:
             print(f"Loading geospatial dataset from: {file_path}")
@@ -2083,7 +2073,7 @@ def load_geospatial_dataset_realistic(file_path):
             print(f"Loaded {len(gdf)} geospatial features")
             print(f"Available columns: {list(gdf.columns)}")
         
-        # Extract realistic geospatial features
+        # Extract geospatial features
         vectors = extract_optimized_geospatial_features(gdf)
         actual_dimensions = vectors.shape[1]
         
@@ -2108,10 +2098,7 @@ def load_geospatial_dataset_realistic(file_path):
         raise RuntimeError(f"Geospatial dataset loading failed: {e}")
 
 def extract_optimized_geospatial_features(gdf):
-    """
-    CORRECTED: Extract minimal, optimized features for maximum performance
-    Fewer dimensions = faster processing
-    """
+
     features_list = []
     
     for idx, row in gdf.iterrows():
@@ -2155,10 +2142,7 @@ def extract_optimized_geospatial_features(gdf):
     return result
 
 def load_geospatial_chunks_optimized(dataset_path, workload, num_processes, process_rank, dataset_key='geospatial'):
-    """
-    CORRECTED: Optimized loading for small geospatial dataset
-    Should be MUCH faster than GIST-960 loading
-    """
+
     comm = MPI.COMM_WORLD
     
     vectors_per_process = workload // num_processes
@@ -2214,13 +2198,6 @@ def load_geospatial_chunks_optimized(dataset_path, workload, num_processes, proc
     return chunk
 
 class OptimizedGeospatialTester:
-    """
-    CORRECTED: Should perform MUCH better than GIST-960 due to advantages:
-    - 6D vs 960D vectors (160× fewer dimensions)  
-    - 258 vs 1M vectors (3876× smaller dataset)
-    - Lower memory pressure
-    - Faster consensus on smaller data
-    """
     
     def __init__(self, network, vector_dimensions):
         self.network = network
@@ -2291,10 +2268,7 @@ class OptimizedGeospatialTester:
         return throughput, avg_latency
 
 def run_properly_realistic_geospatial_experiment(comm, dataset_info, workloads=GEOSPATIAL_WORKLOADS, network_size=DEFAULT_NETWORK_SIZE):
-    """
-    CORRECTED: Geospatial should significantly outperform GIST-960 
-    Expected FlexShard: 500K-2M vectors/sec (vs GIST's 400K)
-    """
+
     rank = comm.Get_rank()
     size = comm.Get_size()
     
@@ -2385,8 +2359,7 @@ def run_properly_realistic_geospatial_experiment(comm, dataset_info, workloads=G
 
 def run_realistic_baseline_geospatial(comm, dataset_info, baseline_type, workloads=GEOSPATIAL_WORKLOADS, network_size=DEFAULT_NETWORK_SIZE):
     """
-    CORRECTED: Baseline performance should also benefit from small vectors
-    But not as much as FlexShard due to architectural differences
+    Baseline performance should also benefit from small vectors
     """
     rank = comm.Get_rank()
     size = comm.Get_size()
@@ -2483,7 +2456,7 @@ def run_realistic_baseline_geospatial(comm, dataset_info, baseline_type, workloa
     return None
 
 # ===============================================================
-# MAIN EXPERIMENT WITH PROPER PERFORMANCE EXPECTATIONS
+# MAIN EXPERIMENT
 # ===============================================================
 
 def main_properly_realistic_geospatial_experiment():
@@ -2597,11 +2570,6 @@ if __name__ == "__main__":
 
 #----------------------------------------------------------Read, Write Latency Experiments----------------------------------------------
 
-# ===============================================================
-# CORRECTED ENHANCED READ/WRITE LATENCY MEASUREMENT FOR FLEXSHARD
-# Replace the previous implementation with this corrected version
-# ===============================================================
-
 import random
 import time
 import numpy as np
@@ -2614,7 +2582,7 @@ from collections import defaultdict
 
 def enhanced_read_block(network, block_id, use_sharding=True):
     """
-    CORRECTED: Realistic block reading with proper performance characteristics
+     block reading with proper performance characteristics
     
     Args:
         network: Network instance with enhanced consensus
@@ -2659,8 +2627,7 @@ def enhanced_read_block(network, block_id, use_sharding=True):
                         if retrieved_block:
                             break
                 
-                # Small overhead for sharded coordination
-                coordination_overhead = search_count * 0.000001  # 1 microsecond per search unit
+                coordination_overhead = search_count * 0.000001 
                 time.sleep(coordination_overhead)
             else:
                 # Fallback to full search if no leaders
@@ -2678,8 +2645,7 @@ def enhanced_read_block(network, block_id, use_sharding=True):
                 if retrieved_block:
                     break
             
-            # Slightly higher overhead for non-sharded due to lack of optimization
-            linear_search_overhead = search_count * 0.000002  # 2 microseconds per node
+            linear_search_overhead = search_count * 0.000002
             time.sleep(linear_search_overhead)
         
     except Exception as e:
@@ -2692,11 +2658,11 @@ def enhanced_read_block(network, block_id, use_sharding=True):
     return retrieved_block, retrieval_time
 
 # ===============================================================
-# CORRECTED WRITE LATENCY MEASUREMENT
+#  WRITE LATENCY MEASUREMENT
 # ===============================================================
 
 class EnhancedWriteLatencyTester:
-    """CORRECTED: More realistic write latency tester"""
+    """ More realistic write latency tester"""
     
     def __init__(self, network):
         self.network = network
@@ -2719,7 +2685,7 @@ class EnhancedWriteLatencyTester:
             # PHASE 1: Vector processing overhead (minimal but realistic)
             if isinstance(vector_data, (list, np.ndarray)):
                 # Very small validation cost
-                validation_time = len(vector_data) * 0.00000005  # 0.05 microseconds per dimension
+                validation_time = len(vector_data) * 0.00000005
                 time.sleep(validation_time)
             
             # PHASE 2: Use enhanced consensus system
@@ -2729,7 +2695,7 @@ class EnhancedWriteLatencyTester:
                 peer_id=peer_id
             )
             
-            # PHASE 3: Sharding overhead (only when actually needed)
+            # PHASE 3: Sharding
             if consensus_result and hasattr(self.network, 'clusters') and len(self.network.clusters) > 1:
                 # Check if sharding is actually beneficial
                 leaders = self.network.get_leader_board()
@@ -2757,14 +2723,14 @@ class EnhancedWriteLatencyTester:
         return total_latency
 
 # ===============================================================
-# CORRECTED EXPERIMENT FUNCTION
+# EXPERIMENT FUNCTION
 # ===============================================================
 
 def experiment_enhanced_read_write_comparison(comm, dataset_info, 
                                             workloads=None, 
                                             network_size=DEFAULT_NETWORK_SIZE):
     """
-    CORRECTED: More realistic read/write latency comparison
+    More realistic read/write latency comparison
     """
     if workloads is None:
         workloads = [200000, 400000, 600000, 800000, 1000000]
@@ -4722,6 +4688,7 @@ def main():
 
 if __name__ == "__main__":
     main()
+
 
 
 
