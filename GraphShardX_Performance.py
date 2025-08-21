@@ -974,7 +974,7 @@ class WeaviateBaseline:
 
 
 # ===============================================================
-# PINECONE BASELINE IMPLEMENTATION (REPLACES FAISS)
+# PINECONE BASELINE IMPLEMENTATION
 # ===============================================================
 
 import pinecone
@@ -1250,7 +1250,7 @@ class BaselineTester:
 
 
 # ===============================================================
-# DATASET LOADING - FIXED TO USE THE CORRECT METHOD NAME
+# DATASET LOADING 
 # ===============================================================
 
 def get_dataset_info_safe(file_path):
@@ -1535,7 +1535,7 @@ def run_experiment_2_optimized(comm, dataset_info, network_sizes=NETWORK_SIZES, 
 
 
 # ===============================================================
-# UPDATED EXPERIMENT FUNCTIONS WITH PINECONE
+# EXPERIMENT FUNCTIONS WITH PINECONE
 # ===============================================================
 
 def run_baseline_experiment_1(comm, dataset_info, baseline_type, workloads=WORKLOADS, network_size=DEFAULT_NETWORK_SIZE):
@@ -2027,8 +2027,6 @@ def visualize_comparison_experiment_2(GraphShardX_results, baseline_results, sav
     plt.close()
     
     print(f"Professional Experiment 2 visualizations saved to {save_dir}")
-
-
 
 
 
@@ -2577,7 +2575,7 @@ from concurrent.futures import ThreadPoolExecutor
 from collections import defaultdict
 
 # ===============================================================
-# CORRECTED BLOCK READ FUNCTIONALITY
+# BLOCK READ FUNCTIONALITY
 # ===============================================================
 
 def enhanced_read_block(network, block_id, use_sharding=True):
@@ -2729,7 +2727,7 @@ def experiment_enhanced_read_write_comparison(comm, dataset_info,
                                             workloads=None, 
                                             network_size=DEFAULT_NETWORK_SIZE):
     """
-    More  read/write latency comparison
+      read/write latency comparison
     """
     if workloads is None:
         workloads = [200000, 400000, 600000, 800000, 1000000]
@@ -3869,7 +3867,7 @@ def visualize_fault_tolerance_results(results, save_dir):
 
 # --------------------------------------------------------------------DIMENSIONAL SCALING EXPERIMENT-----------------------------------------------------------------
 # ===============================================================
-# DIMENSIONAL SCALING EXPERIMENT - FOR INJECTION INTO MAIN FILE
+# DIMENSIONAL SCALING EXPERIMENT
 # Test GraphShardX performance across increasing vector dimensions
 # ===============================================================
 
@@ -4519,13 +4517,9 @@ def main_dimensional_scaling_experiment():
         comm.Abort(1)
 
 
-
 #uncomment to run dimensional scaling experiment independently
 # if __name__ == "__main__":
 #     main_dimensional_scaling_experiment()
-
-
-
 
 
 
@@ -4678,6 +4672,7 @@ def main():
 
 if __name__ == "__main__":
     main()
+
 
 
 
