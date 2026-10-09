@@ -1,0 +1,36 @@
+[build-system]
+requires = ["setuptools>=75", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "graphshardx"
+version = "1.0.0"
+description = "Decentralized, similarity-aware vector data management"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = ["numpy>=2.1,<3", "scikit-learn>=1.5,<2", "networkx>=3.3,<4", "psutil>=6,<8", "msgpack>=1.1,<2"]
+
+[project.optional-dependencies]
+experiments = ["h5py>=3.11,<4", "matplotlib>=3.9,<4", "geopandas>=1,<2"]
+mpi = ["mpi4py>=4,<5"]
+test = ["pytest>=8,<10", "pytest-asyncio>=0.24,<2", "ruff>=0.9,<1", "build>=1,<2", "h5py>=3.11,<4", "matplotlib>=3.9,<4"]
+
+[project.scripts]
+graphshardx = "graphshardx.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.data-files]
+"share/graphshardx/configs" = ["configs/local.toml", "configs/paper.toml"]
+"share/graphshardx" = ["requirements.lock"]
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+testpaths = ["tests"]
+
+[tool.ruff]
+line-length = 100
+
+[tool.ruff.lint]
+select = ["E4", "E7", "E9", "F", "B", "UP"]

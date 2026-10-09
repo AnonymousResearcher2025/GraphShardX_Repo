@@ -1,0 +1,12 @@
+nodes = 24
+leaders = 5
+shards = 4
+dimension = 16
+replicas = 3
+minimum_replicas = 3
+fallback_f = 2
+batch_size = 128
+noise_clusters = 4
+storage_mode = "disk"
+epoch_mode = "consensus"
+seed = 42
